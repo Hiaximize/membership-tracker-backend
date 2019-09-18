@@ -9,7 +9,7 @@ router.get('/', (req, resp)=>{
 })
 
 router.get('/:id', (req, resp)=>{
-    members.findOne({}, (error, member)=>{
+    members.find ({_id:{$eq: req.params.id}}, (error, member)=>{
         resp.json(member)
     })
 })
