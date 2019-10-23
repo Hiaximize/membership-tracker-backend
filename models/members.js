@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const member = new Schema ({
+    dateCreated: {type: Date, default:Date.now},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     phoneNumber: {type: Number, min: 1000000000, max: 9999999999},
@@ -13,8 +14,7 @@ const member = new Schema ({
     basic: String,
     silver: String,
     premium: String,
-    startDate: {type: Date, required: true},
-    dueDate: {type: Date, required: true},
+    startDate: Date,
     notes: String
 });
 

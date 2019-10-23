@@ -8,15 +8,21 @@ const port = process.env.PORT || 3000
 const members = require('./models/members.js')
 const membersController = require('./controllers/members.js');
 const mongoose = require('mongoose');
+const morgan = require('morgan')
 const MONGODB_URI = process.env.MONGODB_URI
 const db = mongoose.connection;
 const Schema = mongoose.Schema;
 
 // Middleware
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+}
 app.use(express.static('public'))
 app.use(express.json())
-app.use(cors()); // NO SENSITIVE INFORMATION WITH THIS SETTING
-app.use('/members', membersController)
+// app.use(cors()); // NO SENSITIVE INFORMATION WITH THIS SETTING
+app.use(morgan('tiny'))
+app.use('/members', cors(corsOptions),  membersController)
 //////////////////////////////
 
 // Code to handle database 

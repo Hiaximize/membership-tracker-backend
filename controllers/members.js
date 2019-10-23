@@ -1,20 +1,23 @@
 const express = require('express')
 const router = express.Router()
 const members = require('../models/members.js')
-// getting error seemingly here trying to find the index path on heroku
+
 router.get('/', (req, resp)=>{
     members.find({}, (error, foundMembers)=>{
+        // console.log(foundMembers)
         resp.json(foundMembers)
     })
 })
 
 router.get('/:id', (req, resp)=>{
-    members.find ({_id:{$eq: req.params.id}}, (error, member)=>{
+    members.find({_id:{$eq: req.params.id}}, (error, member)=>{
+        console.log(member)
         resp.json(member)
     })
 })
 
 router.put('/:id', (req, resp)=>{
+    console.log(req.body)
     members.findByIdAndUpdate(req.params.id, req.body, {new:true}, (error, updatedMember)=>{
         resp.json(updatedMember)
     })
@@ -32,7 +35,10 @@ router.delete('/:id', (req, resp)=>{
 })
 
 router.post('/', (req, resp)=>{
+    console.log(req.body)
     members.create(req.body, (error, createdMember)=>{
+        console.log(error)
+        console.log(createdMember)
         resp.json(createdMember)
     })
 })
